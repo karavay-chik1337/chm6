@@ -10,7 +10,6 @@ public class ShootingMethod {
     double eps;
     int K;
     double alpha0;
-    double alpha1;
     double A;
     double B;
     double C;
@@ -23,14 +22,13 @@ public class ShootingMethod {
 
     public ShootingMethod() {}
 
-    public ShootingMethod(double a, double b, int N, double eps, int K, double alpha0, double alpha1, double A, double B, double C) {
+    public ShootingMethod(double a, double b, int N, double eps, int K, double alpha0, double A, double B, double C) {
         this.a = a;
         this.b = b;
         this.n = N;
         this.eps = eps;
         this.K = K;
         this.alpha0 = alpha0;
-        this.alpha1 = alpha1;
         this.A = A;
         this.B = B;
         this.C = C;
@@ -39,27 +37,25 @@ public class ShootingMethod {
 
         x = new double[n + 1];
         x[0] = a;
-        for (int i = 1; i <= n; i++)
+        for (int i = 1; i <= n; i++)//равномерное разбиение
             x[i] = a + (h * i);
-
     }
 
     public void method() {
         int L = 0;
         List<Double> alpha = new ArrayList<>();
         alpha.add(alpha0);
-        alpha.add(alpha1);
         int alphaPos = 0;
 
-        List<Double> target = new ArrayList<>();
-        target.add(RungeKutt(alpha.get(alphaPos)));
+        List<Double> fi = new ArrayList<>();
+        fi.add(RungeKutt(alpha.get(alphaPos)));
         alphaPos++;
-        target.add(RungeKutt(alpha.get(alphaPos)));
 
-        System.out.println("\nSecant method:");
-        while (L < K && target.getLast() > eps) {
-            alpha.add(alpha.get(alphaPos) - target.get(alphaPos) * (alpha.get(alphaPos) - alpha.get(alphaPos - 1)) / (target.get(alphaPos) - target.get(alphaPos - 1)));
-            target.add(RungeKutt(alpha.getLast()));
+        //System.out.println("\nSecant method:");
+        while (L < K && fi.getLast() > eps) {
+
+//            alpha.add(alpha.get(alphaPos) - fi.get(alphaPos) * (alpha.get(alphaPos) - alpha.get(alphaPos - 1)) / (fi.get(alphaPos) - fi.get(alphaPos - 1)));
+//            fi.add(RungeKutt(alpha.getLast()));
             alphaPos++;
             L++;
         }
@@ -80,8 +76,8 @@ public class ShootingMethod {
         w = new double[n + 1];
         z = new double[n + 1];
         u[0] = A;
-        w[0] = B;
-        z[0] = curAlpha;
+        w[0] = curAlpha;
+        z[0] = B;
 
         for (int i = 1; i <= n; i++) {
             if (i == 1) {
@@ -111,6 +107,6 @@ public class ShootingMethod {
             System.out.printf("%-10f \t %-10f \t %-10f \t %-10f \t %-10f \t %-10f \t %-10f \n", x[i], u[i], abs(u[i] - Function.trueU(x[i])), w[i], abs(w[i] - Function.trueW(x[i])), z[i], abs(z[i] - Function.trueZ(x[i])));
         }
 
-        return abs(u[n] - C);
+        return abs(w[n] - C);
     }
 }
