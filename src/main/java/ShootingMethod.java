@@ -70,33 +70,6 @@ public class ShootingMethod {
             ier = 1;
         }
         System.out.println("L: " + L + "\nalpha: " + alpha + "\nIER: " + ier);
-//        int L = 0;
-//        List<Double> alpha = new ArrayList<>();
-//        alpha.add(alpha0);
-//        alpha.add(alpha1);
-//        int alphaPos = 0;
-//
-//        List<Double> target = new ArrayList<>();
-//        target.add(RungeKutt(alpha.get(alphaPos)));
-//        alphaPos++;
-//        target.add(RungeKutt(alpha.get(alphaPos)));
-//
-//        System.out.println("\nSecant method:");
-//        while (L < K && target.getLast() > eps) {
-//            alpha.add(alpha.get(alphaPos) - target.get(alphaPos) * (alpha.get(alphaPos) - alpha.get(alphaPos - 1)) / (target.get(alphaPos) - target.get(alphaPos - 1)));
-//            target.add(RungeKutt(alpha.getLast()));
-//            alphaPos++;
-//            L++;
-//        }
-//
-//        if (L >= K) {
-//            System.out.println("IER: " + 1);
-//        }
-//        else {
-//            System.out.println("IER: " + 0);
-//            System.out.println("Iterations: " + L);
-//            System.out.println("Final alpha: " + alpha.getLast());
-//        }
 
     }
 
